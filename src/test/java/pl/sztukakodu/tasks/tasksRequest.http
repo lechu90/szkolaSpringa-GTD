@@ -1,0 +1,11 @@
+GET http://localhost:9090/
+Accept: application/json
+###
+
+POST localhost:9090/
+Content-Type: application/json
+
+{
+  "title": "testowe zadanie 2"
+}
+###

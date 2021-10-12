@@ -1,0 +1,7 @@
+server:
+  port: 8080
+app:
+  tasks:
+    endpointGetLogMessage: 'received HTTP GET request'
+    endpointPostLogMessage: 'received HTTTP POST request with {}'
+    propByValue: 'value of this property fetched by @Value annotation'
