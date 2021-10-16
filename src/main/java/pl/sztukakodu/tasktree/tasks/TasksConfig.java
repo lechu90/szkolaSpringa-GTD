@@ -1,4 +1,4 @@
-package pl.sztukakodu.tasks;
+package pl.sztukakodu.tasktree.tasks;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

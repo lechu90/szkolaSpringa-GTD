@@ -1,14 +1,12 @@
-package pl.sztukakodu.tasks;
+package pl.sztukakodu.tasktree;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TasksApplication {
+public class TaskTreeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TasksApplication.class, args);
+		SpringApplication.run(TaskTreeApplication.class, args);
 	}
-
 }

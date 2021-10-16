@@ -1,4 +1,4 @@
-package pl.sztukakodu.tasks;
+package pl.sztukakodu.tasktree.tasks;
 
 import org.springframework.stereotype.Component;
 

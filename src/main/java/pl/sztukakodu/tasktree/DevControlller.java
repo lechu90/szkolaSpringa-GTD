@@ -1,4 +1,4 @@
-package pl.sztukakodu.tasks;
+package pl.sztukakodu.tasktree;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/dev")
 public class DevControlller {
+
     @GetMapping
     public String devOnly() {
-        return "Hello from dev profile";
+        return "Hello from dev profile TEST";
     }
 }
