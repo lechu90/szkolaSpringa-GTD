@@ -6,14 +6,19 @@ POST http://localhost:9090/api/tasks
 Content-Type: application/json
 
 {
+  "id": 3,
   "title": "testowe zadanie",
   "author": "Jan Testowy",
   "createdAt": "2021-10-15"
 }
 ###
 
-PUT http://localhost:9090/api/tasks
+GET http://localhost:9090/api/tasks/1
+Accept: application/json
 ###
 
-DELETE http://localhost:9090/api/tasks
+DELETE http://localhost:9090/api/tasks/3
+###
+
+PUT http://localhost:9090/api/tasks
 ###

@@ -21,4 +21,21 @@ public class MemoryTasksRepository implements TasksRepository {
     public void addTask(Task task) {
         tasks.add(task);
     }
+
+    @Override
+    public Task fetchById(Long id) {
+        return tasks.stream()
+                .filter(task -> id.equals(task.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No task with given id"));
+    }
+
+    @Override
+    public void deleteTaskById(Long id) {
+        tasks.stream()
+                .filter(task -> id.equals(task.getId()))
+                .findFirst()
+                .ifPresent(tasks::remove);
+
+    }
 }

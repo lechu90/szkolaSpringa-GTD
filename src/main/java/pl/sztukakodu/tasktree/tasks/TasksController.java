@@ -31,6 +31,12 @@ public class TasksController {
         return tasksRepository.fetchAll();
     }
 
+    @GetMapping(path = "/{id}")
+    public Task fetchById(@PathVariable Long id) {
+        log.info("Fetching task with id: {}", id);
+        return tasksRepository.fetchById(id);
+    }
+
     @GetMapping(path = "/hotReload")
     public String test() {
         return "live reload on build project WORKS!";
@@ -47,8 +53,9 @@ public class TasksController {
         log.info("task updated");
     }
 
-    @DeleteMapping
-    public void deleteTask() {
-        log.info("task deleted");
+    @DeleteMapping(path = "{id}")
+    public void deleteTask(@PathVariable Long id) {
+        log.info("Deleting task with id: {}", id);
+        tasksRepository.deleteTaskById(id);
     }
 }
