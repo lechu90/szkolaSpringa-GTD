@@ -1,4 +1,6 @@
-package pl.sztukakodu.tasktree.tasks;
+package pl.sztukakodu.tasktree.tasks.boundary;
+
+import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import java.util.List;
 

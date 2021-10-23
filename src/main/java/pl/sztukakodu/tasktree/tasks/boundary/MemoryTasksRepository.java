@@ -1,6 +1,7 @@
-package pl.sztukakodu.tasktree.tasks;
+package pl.sztukakodu.tasktree.tasks.boundary;
 
 import org.springframework.stereotype.Component;
+import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
