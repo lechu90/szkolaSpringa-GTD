@@ -6,9 +6,9 @@ POST http://localhost:9090/api/tasks
 Content-Type: application/json
 
 {
-  "title": "testowe zadanie",
-  "description": "testowy opis",
-  "author": "Jan Testowy"
+  "title": "nowe testowe zadanie",
+  "description": "nowy testowy opis",
+  "author": "nowy Jan Testowy"
 }
 ###
 
@@ -16,8 +16,14 @@ GET http://localhost:9090/api/tasks/1
 Accept: application/json
 ###
 
-DELETE http://localhost:9090/api/tasks/3
+DELETE http://localhost:9090/api/tasks/2
 ###
 
-PUT http://localhost:9090/api/tasks
+PUT http://localhost:9090/api/tasks/1
+Content-Type: application/json
+
+{
+  "title": "zaktualizowany tytuł",
+  "description": "zaktualizowany opis"
+}
 ###

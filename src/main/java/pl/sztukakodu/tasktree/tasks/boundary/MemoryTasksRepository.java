@@ -3,10 +3,7 @@ package pl.sztukakodu.tasktree.tasks.boundary;
 import org.springframework.stereotype.Component;
 import pl.sztukakodu.tasktree.tasks.entity.Task;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class MemoryTasksRepository implements TasksRepository {
@@ -25,18 +22,28 @@ public class MemoryTasksRepository implements TasksRepository {
 
     @Override
     public Task fetchById(Long id) {
-        return tasks.stream()
-                .filter(task -> id.equals(task.getId()))
-                .findFirst()
+        return findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("No task with given id"));
     }
 
     @Override
     public void deleteTaskById(Long id) {
-        tasks.stream()
-                .filter(task -> id.equals(task.getId()))
-                .findFirst()
+        findById(id)
                 .ifPresent(tasks::remove);
 
+    }
+
+    @Override
+    public void updateTask(Long id, String title, String description) {
+        findById(id).ifPresent(task -> {
+            task.setTitle(title);
+            task.setDescription(description);
+        });
+    }
+
+    private Optional<Task> findById(Long id) {
+        return tasks.stream()
+                .filter(task -> id.equals(task.getId()))
+                .findFirst();
     }
 }

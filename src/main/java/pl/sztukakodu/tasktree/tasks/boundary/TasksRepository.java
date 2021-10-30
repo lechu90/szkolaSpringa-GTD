@@ -13,4 +13,6 @@ public interface TasksRepository {
     Task fetchById(Long id);
 
     void deleteTaskById(Long id);
+
+    void updateTask(Long id, String title, String description);
 }

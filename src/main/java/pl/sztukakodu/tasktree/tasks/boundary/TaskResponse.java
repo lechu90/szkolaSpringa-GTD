@@ -5,6 +5,7 @@ import lombok.Data;
 import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +17,5 @@ public class TaskResponse {
 
     private String description;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 }

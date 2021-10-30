@@ -61,9 +61,11 @@ public class TasksController {
         tasksService.addTask(taskRequest.getTitle(), taskRequest.getDescription(), taskRequest.getAuthor());
     }
 
-    @PutMapping
-    public void updateTask() {
-        log.info("task updated");
+    @PutMapping(path = "/{id}")
+    public void updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest) {
+        log.info("task updating...");
+        tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
+
     }
 
     @DeleteMapping(path = "{id}")

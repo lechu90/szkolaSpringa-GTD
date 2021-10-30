@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +18,5 @@ public class Task {
 
     private String author;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 }
