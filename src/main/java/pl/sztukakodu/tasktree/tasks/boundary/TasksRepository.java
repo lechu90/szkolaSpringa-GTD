@@ -8,6 +8,8 @@ public interface TasksRepository {
 
     List<Task> fetchAll();
 
+    List<Task> filterAllByQuery(String query);
+
     void addTask(Task task);
 
     Task fetchById(Long id);

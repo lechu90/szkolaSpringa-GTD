@@ -6,6 +6,7 @@ import pl.sztukakodu.tasktree.SystemClock;
 import pl.sztukakodu.tasktree.tasks.boundary.TasksRepository;
 import pl.sztukakodu.tasktree.tasks.entity.Task;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -20,6 +21,14 @@ public class TasksService {
     public TasksService(TasksRepository tasksRepository, Clock clock) {
         this.tasksRepository = tasksRepository;
         this.clock = clock;
+    }
+
+    public List<Task> fetchAll() {
+        return tasksRepository.fetchAll();
+    }
+
+    public List<Task> filterAllByQuery(String query) {
+        return tasksRepository.filterAllByQuery(query);
     }
 
     public void addTask(String title, String description, String author) {

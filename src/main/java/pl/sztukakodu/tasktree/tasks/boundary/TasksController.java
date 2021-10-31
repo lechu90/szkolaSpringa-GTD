@@ -9,6 +9,7 @@ import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/tasks")
@@ -38,10 +39,13 @@ public class TasksController {
     }
 
     @GetMapping
-    public List<TaskResponse> fetchAll() {
+    public List<TaskResponse> getTasks(@RequestParam Optional<String> query) {
         log.info(config.getEndpointGetLogMessage());
         log.info(testPropertyByValue);
-        return tasksRepository.fetchAll().stream().map(this::convertToTaskResponse).toList();
+        log.info("Fetching tasks filtered by {}", query);
+        return query.map(tasksService::filterAllByQuery)
+                .orElseGet(tasksService::fetchAll)
+                .stream().map(this::convertToTaskResponse).toList();
     }
 
     @GetMapping(path = "/{id}")

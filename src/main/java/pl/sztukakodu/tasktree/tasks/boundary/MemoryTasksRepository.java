@@ -16,6 +16,13 @@ public class MemoryTasksRepository implements TasksRepository {
     }
 
     @Override
+    public List<Task> filterAllByQuery(String query) {
+        return tasks.stream()
+                .filter(task -> task.getTitle().contains(query) || task.getDescription().contains(query))
+                .toList();
+    }
+
+    @Override
     public void addTask(Task task) {
         tasks.add(task);
     }
