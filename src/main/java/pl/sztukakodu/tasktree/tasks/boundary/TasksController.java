@@ -70,16 +70,9 @@ public class TasksController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest,
-                           HttpServletResponse response) throws IOException {
+    public void updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest) {
         log.info("task updating...");
-        try {
-            tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
-        } catch (NotFoundException exception) {
-            log.error("Task update failed. Task not found for id = " + id, exception);
-            response.sendError(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-        }
-
+        tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
     }
 
     @DeleteMapping(path = "{id}")
