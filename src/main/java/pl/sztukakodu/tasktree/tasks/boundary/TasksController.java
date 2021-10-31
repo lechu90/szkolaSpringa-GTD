@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.sztukakodu.tasktree.exceptions.NotFoundException;
 import pl.sztukakodu.tasktree.tasks.TasksConfig;
 import pl.sztukakodu.tasktree.tasks.control.TasksService;
@@ -72,7 +73,12 @@ public class TasksController {
     @PutMapping(path = "/{id}")
     public void updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest) {
         log.info("task updating...");
-        tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
+        try {
+            tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
+        } catch (NotFoundException exception) {
+            log.error("Task update failed. Task not found for id = " + id, exception);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+        }
     }
 
     @DeleteMapping(path = "{id}")
