@@ -1,6 +1,7 @@
 package pl.sztukakodu.tasktree.tasks.boundary;
 
 import org.springframework.stereotype.Component;
+import pl.sztukakodu.tasktree.exceptions.NotFoundException;
 import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import java.util.*;
@@ -42,10 +43,9 @@ public class MemoryTasksRepository implements TasksRepository {
 
     @Override
     public void updateTask(Long id, String title, String description) {
-        findById(id).ifPresent(task -> {
-            task.setTitle(title);
-            task.setDescription(description);
-        });
+        Task task = findById(id).orElseThrow(() -> new NotFoundException(String.format("Task with id[%s] not found", id)));
+        task.setTitle(title);
+        task.setDescription(description);
     }
 
     private Optional<Task> findById(Long id) {
