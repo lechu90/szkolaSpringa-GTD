@@ -3,16 +3,14 @@ package pl.sztukakodu.tasktree.tasks.boundary;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import pl.sztukakodu.tasktree.exceptions.NotFoundException;
 import pl.sztukakodu.tasktree.tasks.TasksConfig;
 import pl.sztukakodu.tasktree.tasks.control.TasksService;
 import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,13 +69,14 @@ public class TasksController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest) {
+    public ResponseEntity updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest) {
         log.info("task updating...");
         try {
             tasksService.updateTask(id, updateTaskRequest.getTitle(), updateTaskRequest.getDescription());
+            return ResponseEntity.noContent().build();
         } catch (NotFoundException exception) {
             log.error("Task update failed. Task not found for id = " + id, exception);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
         }
     }
 
