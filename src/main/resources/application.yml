@@ -3,5 +3,6 @@ server:
 app:
   tasks:
     endpointGetLogMessage: 'received HTTP GET request'
-    endpointPostLogMessage: 'received HTTTP POST request with {}'
+    endpointPostLogMessage: 'received HTTP POST request with {}'
     propByValue: 'value of this property fetched by @Value annotation'
+    uploadsPath: 'uploads'

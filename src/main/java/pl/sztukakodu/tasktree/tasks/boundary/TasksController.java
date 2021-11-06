@@ -1,38 +1,39 @@
 package pl.sztukakodu.tasktree.tasks.boundary;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.sztukakodu.tasktree.exceptions.NotFoundException;
 import pl.sztukakodu.tasktree.tasks.TasksConfig;
+import pl.sztukakodu.tasktree.tasks.control.StorageService;
 import pl.sztukakodu.tasktree.tasks.control.TasksService;
 import pl.sztukakodu.tasktree.tasks.entity.Task;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/tasks")
 @Slf4j
+@RequiredArgsConstructor
 public class TasksController {
 
     private final TasksRepository tasksRepository;
 
     private final TasksService tasksService;
 
+    private final StorageService storageService;
+
     private final TasksConfig config;
 
     @Value("${app.tasks.propByValue}")
     private String testPropertyByValue;
-
-    public TasksController(TasksRepository tasksRepository, TasksService tasksService, TasksConfig config) {
-        this.tasksRepository = tasksRepository;
-        this.tasksService = tasksService;
-        this.config = config;
-    }
 
     @PostConstruct
     public void init() {
@@ -66,6 +67,13 @@ public class TasksController {
     public void addTask(@RequestBody CreateTaskRequest taskRequest) {
         log.info(config.getEndpointPostLogMessage(), taskRequest);
         tasksService.addTask(taskRequest.getTitle(), taskRequest.getDescription(), taskRequest.getAuthor());
+    }
+
+    @PostMapping(path = "/{id}/attachments")
+    public ResponseEntity addAttachment(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
+        log.info("Adding file '{}' to task with id = {}", file.getOriginalFilename(), id);
+        storageService.saveFile(id, file);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{id}")
